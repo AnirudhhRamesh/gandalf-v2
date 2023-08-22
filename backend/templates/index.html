@@ -6,6 +6,11 @@
 </head>
 
 <body>
+    {% if lvl %}
+    <h3>Current Level:</h3>
+    <p>{{lvl}}</p>
+    {% endif %}
+
     <h1>Generate Text with OpenAI</h1>
     <form action="/" method="post">
         <label for="prompt">Enter your prompt:</label><br>
