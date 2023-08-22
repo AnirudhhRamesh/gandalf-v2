@@ -10,8 +10,7 @@ app = Flask(__name__)
 # Define a route and a view function
 @app.route('/')
 def hello():
-    
-    return "Hello, World!"
+    return f"Hello, World! This is your {(SECRET_KEY)} and {(API_KEY)}"
 
 # Entry point for the application
 if __name__ == '__main__':
