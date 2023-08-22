@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>OpenAI Flask App</title>
+</head>
+
+<body>
+    <h1>Generate Text with OpenAI</h1>
+    <form action="/" method="post">
+        <label for="prompt">Enter your prompt:</label><br>
+        <input type="text" id="prompt" name="prompt" required><br><br>
+        <button type="submit">Submit Prompt</button>
+    </form>
+    <br>
+    {% if generated_text %}
+    <h2>Generated Text:</h2>
+    <p>{{ generated_text }}</p>
+    {% endif %}
+</body>
+
+</html>
