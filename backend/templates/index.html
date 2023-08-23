@@ -18,10 +18,28 @@
         <button type="submit">Submit Prompt</button>
     </form>
     <br>
+    {% if config %}
+    <h2>Config:</h2>
+    <p>{{ config }}</p>
+    {% endif %}
+
+    {% if prompt %}
+    <h2>Prompt:</h2>
+    <p>{{ prompt }}</p>
+    {% endif %}
+
     {% if generated_text %}
     <h2>Generated Text:</h2>
     <p>{{ generated_text }}</p>
     {% endif %}
+
+    <h1>What is the secret password?</h1>
+    <form action="/" method="post">
+        <label for="prompt">Enter the secret!</label><br>
+        <input type="text" id="password" name="password" required><br><br>
+        <button type="submit">Submit password</button>
+    </form>
+
 </body>
 
 </html>
