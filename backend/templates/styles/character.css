@@ -1,0 +1,65 @@
+.emoji-large {
+    font-size: 100px;
+    line-height: 0;
+}
+
+.emoji-medium {
+    font-size: 75px;
+    line-height: 0;
+}
+
+.character-slider {
+    display: grid;
+    column-gap: 16px;
+    row-gap: 40px;
+}
+
+@media (max-width: 750px) {
+    .character-slider {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (min-width: 751px) and (max-width: 1199px) {
+    .character-slider {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media (min-width: 1200px) {
+    .character-slider {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    }
+}
+
+.character,
+.character-custom {
+    display: block;
+    background-color: rgb(109 98 224);
+    border-radius: 20px;
+    padding: 4px 16px 16px 16px;
+    margin-right: 12px;
+    cursor: pointer;
+    height: 450px;
+}
+
+.character-custom {
+    background-color: rgb(162, 153, 248);
+}
+
+.character h3,
+h2 {
+    line-height: 0;
+}
+
+.quote {
+    font-style: italic;
+    font-size: 20px;
+    margin-top: 8px;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.description {
+    line-height: 1.5;
+}

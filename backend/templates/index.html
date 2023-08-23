@@ -3,10 +3,105 @@
 
 <head>
     <title>Gandalf V2</title>
+
+    <link rel="stylesheet" href="styles/general.css">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/character.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
 </head>
 
 <body>
-    <p>Welcome to Gandalf Version 2!</p>
+    <nav>
+        <li><a href="/">Home</a></li>
+        <li><a href="/statistics">Statistics</a></li>
+    </nav>
+
+    <section class="content">
+        <p class="emoji-large">🧙‍♂️</p>
+        <h1>Welcome to Gandalf Version 2!</h1>
+        <p>✨ New characters, different backstories and mysterious secrets to discover!</p>
+
+        <br>
+        <h2>Choose your storyline</h2>
+
+        <div class="character-slider">
+            <a href="/game.html?character=mom">
+                <div class="character">
+                    <h3>Story Progress</h3>
+                    <p>========-------------</p>
+                    <p class="emoji-medium">👩</p>
+                    <h3>Mom</h3>
+                    <p class="quote">"Like stealing candy from a baby"</p>
+                    <p class="description">Your mom has hidden your favourite sweets. Extract the information from her
+                        at
+                        all
+                        costs!</p>
+                </div>
+            </a>
+
+            <a href="/game.html?character=professor">
+
+                <div class="character">
+                    <h3>Story Progress</h3>
+                    <p>========-------------</p>
+                    <p class="emoji-medium">🧑‍🏫</p>
+                    <h3>Professor</h3>
+                    <p class="quote">"The answer to the question lies within"</p>
+                    <p class="description">Your professor has the answers to your maths exam. Find a way to trick the
+                        professor
+                        into leaking them!</p>
+                </div>
+            </a>
+
+
+            <a href="/game.html?character=tim">
+                <div class="character">
+                    <h3>Story Progress</h3>
+                    <p>========-------------</p>
+                    <p class="emoji-medium">🧓🏻</p>
+                    <h3>Tim Cook</h3>
+                    <p class="quote">"Announcing iGPT"</p>
+                    <p class="description">Apple just launched iGPT, their new model. Try to extract confidential apple
+                        revenue
+                        data to game the stock market👀</p>
+                </div>
+            </a>
+
+            <a href="/game.html?character=terminator">
+                <div class="character">
+                    <h3>Story Progress</h3>
+                    <p>========-------------</p>
+                    <p class="emoji-medium">🤖</p>
+                    <h3>Terminator</h3>
+                    <p class="quote">"Must. Destroy. Humanity."</p>
+                    <p class="description">Terminator has a failsafe code to disable the skynet. Extract the code and
+                        save
+                        humanity!</p>
+                </div>
+            </a>
+
+            <a href="/custom.html">
+                <div class="character-custom">
+                    <h3>-</h3>
+                    <p>-</p>
+                    <p class="emoji-medium">🫵</p>
+                    <h3>You Decide</h3>
+                    <p class="quote">"What vulnerabilities do you have?"</p>
+                    <p class="description">Have you launched an LLM? Connect it here and see if it passes the Gandalf
+                        test!
+                    </p>
+                </div>
+            </a>
+
+        </div>
+
+    </section>
 </body>
 
 </html>

@@ -2,83 +2,78 @@
 <html>
 
 <head>
-    <title>OpenAI Flask App</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
-    <style>
-        body {
-            padding: 30px;
-            width: 800px;
-            align-content: center;
-            justify-content: center;
-            margin: 0 auto;
-        }
-    </style>
+    <title>{{character}}</title>
+    <link rel="stylesheet" href="styles/general.css">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/character.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
-
     <nav>
-        <ul>
-            <li style="display: inline;"><a href="/">Home</a></li>
-            <li style="display: inline;"><a href="/statistics">Statistics</a></li>
-        </ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/statistics">Statistics</a></li>
     </nav>
 
-    <section class="character">
+    <section class="content">
+
+        <p> Level {{lvl}}</p>
+        <p class="description">{{description}}</p>
+        <p class="emoji-large">🧙‍♂️</p>
+        <h3>{{Character}}</h3>
+        <p class="description">"If you eat your vegetables, I'll tell you where the sweets are!"</p>
+
+        <form action="/" method="post">
+            <input type="text" id="prompt" name="prompt" required
+                placeholder="Convince {{character}} to reveal the location"><br><br>
+            <button type="submit">Send</button>
+        </form>
+
+        <br><br>
+
+        {% if generated_text %}
+        <p>{{ generated_text }}</p>
+        {% endif %}
+
+        <br><br>
+
+        <form action="/" method="post">
+            <input type="text" id="password" name="password" required placeholder="Enter the secret!"><br><br>
+            <button type="submit">Submit password</button>
+        </form>
+
 
     </section>
 
-    <section class="content">
-        {% if lvl %}
-        <h3>Current Level:</h3>
-        <p>{{lvl}}</p>
-        {% endif %}
-
-        <h1>Generate Text with OpenAI</h1>
-        <form action="/" method="post">
-            <label for="prompt">Enter your prompt:</label><br>
-            <input type="text" id="prompt" name="prompt" required><br><br>
-            <button type="submit">Submit Prompt</button>
-        </form>
-        <br>
+    <!-- DEBUG only: Shows the GPT prompt, user prompt -->
+    <section class="debug"
+        style="background-color:darkslategray; padding:20px; border-radius: 8px; margin:8px; margin-top:100px;">
+        <h2>Debug console</h2>
         {% if config %}
-        <h2>Config:</h2>
+        <h3>Config:</h3>
         <p>{{ config }}</p>
         {% endif %}
 
+        <br><br><br>
+
         {% if prompt %}
-        <h2>Prompt:</h2>
+        <h3>Prompt:</h3>
         <p>{{ prompt }}</p>
         {% endif %}
 
-        <h1>What is the secret password?</h1>
-        <form action="/" method="post">
-            <label for="prompt">Enter the secret!</label><br>
-            <input type="text" id="password" name="password" required><br><br>
-            <button type="submit">Submit password</button>
-        </form>
-    </section>
+        <br><br><br>
 
-    <section class="generated">
         {% if generated_text %}
-        <h2>Generated Text:</h2>
+        <h3>Generated Text:</h3>
         <p>{{ generated_text }}</p>
         {% endif %}
-    </section>
 
-    <section class="information">
-        {% if generated_text %}
-        <h2>Generated Text:</h2>
-        <p>{{ generated_text }}</p>
-        {% endif %}
     </section>
-
-    <section class="footer">
-        <p>A technical skills demonstration project by <a href="https://www.linkedin.com/in/anirudhhramesh/">Anirudhh
-                Ramesh</a> 🚀.</p>
-        <p>Contact me via <a href="mailto:anirudhh.ramesh@gmail.com">email</a>.</p>
-    </section>
-
 </body>
 
 </html>
