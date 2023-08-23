@@ -1,0 +1,43 @@
+# Python-specific
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+*.log
+
+# Environment and virtual environment files
+.env
+venv/
+.envrc
+.python-version
+
+# IDE and editor-specific files (e.g., VS Code, PyCharm)
+.vscode/
+.idea/
+*.code-workspace
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# Package and distribution files
+*.egg-info/
+dist/
+build/
+*.egg
+*.log
+*.tar.gz
+MANIFEST
+
+# System and backup files
+Thumbs.db
+.DS_Store
+*~
+*.bak
+
+# Dependency management files
+pip-lock.txt
+pipfile.lock
