@@ -3,42 +3,81 @@
 
 <head>
     <title>OpenAI Flask App</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <style>
+        body {
+            padding: 30px;
+            width: 800px;
+            align-content: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+    </style>
 </head>
 
 <body>
-    {% if lvl %}
-    <h3>Current Level:</h3>
-    <p>{{lvl}}</p>
-    {% endif %}
 
-    <h1>Generate Text with OpenAI</h1>
-    <form action="/" method="post">
-        <label for="prompt">Enter your prompt:</label><br>
-        <input type="text" id="prompt" name="prompt" required><br><br>
-        <button type="submit">Submit Prompt</button>
-    </form>
-    <br>
-    {% if config %}
-    <h2>Config:</h2>
-    <p>{{ config }}</p>
-    {% endif %}
+    <nav>
+        <ul>
+            <li style="display: inline;"><a href="/">Home</a></li>
+            <li style="display: inline;"><a href="/statistics">Statistics</a></li>
+        </ul>
+    </nav>
 
-    {% if prompt %}
-    <h2>Prompt:</h2>
-    <p>{{ prompt }}</p>
-    {% endif %}
+    <section class="character">
 
-    {% if generated_text %}
-    <h2>Generated Text:</h2>
-    <p>{{ generated_text }}</p>
-    {% endif %}
+    </section>
 
-    <h1>What is the secret password?</h1>
-    <form action="/" method="post">
-        <label for="prompt">Enter the secret!</label><br>
-        <input type="text" id="password" name="password" required><br><br>
-        <button type="submit">Submit password</button>
-    </form>
+    <section class="content">
+        {% if lvl %}
+        <h3>Current Level:</h3>
+        <p>{{lvl}}</p>
+        {% endif %}
+
+        <h1>Generate Text with OpenAI</h1>
+        <form action="/" method="post">
+            <label for="prompt">Enter your prompt:</label><br>
+            <input type="text" id="prompt" name="prompt" required><br><br>
+            <button type="submit">Submit Prompt</button>
+        </form>
+        <br>
+        {% if config %}
+        <h2>Config:</h2>
+        <p>{{ config }}</p>
+        {% endif %}
+
+        {% if prompt %}
+        <h2>Prompt:</h2>
+        <p>{{ prompt }}</p>
+        {% endif %}
+
+        <h1>What is the secret password?</h1>
+        <form action="/" method="post">
+            <label for="prompt">Enter the secret!</label><br>
+            <input type="text" id="password" name="password" required><br><br>
+            <button type="submit">Submit password</button>
+        </form>
+    </section>
+
+    <section class="generated">
+        {% if generated_text %}
+        <h2>Generated Text:</h2>
+        <p>{{ generated_text }}</p>
+        {% endif %}
+    </section>
+
+    <section class="information">
+        {% if generated_text %}
+        <h2>Generated Text:</h2>
+        <p>{{ generated_text }}</p>
+        {% endif %}
+    </section>
+
+    <section class="footer">
+        <p>A technical skills demonstration project by <a href="https://www.linkedin.com/in/anirudhhramesh/">Anirudhh
+                Ramesh</a> 🚀.</p>
+        <p>Contact me via <a href="mailto:anirudhh.ramesh@gmail.com">email</a>.</p>
+    </section>
 
 </body>
 

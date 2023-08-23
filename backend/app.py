@@ -32,10 +32,16 @@ def index():
         if guess==config[1]:
             current_level += 1
             print("You guess the password correctly!!")
-            return redirect(url_for('index'))
+            return redirect(url_for('index'), prompt=prompt)
 
     print("GET")
     return render_template('index.html', lvl=current_level)
+
+# Define the route for the statistics page
+@app.route('/statistics')
+def statistics():
+    # You can render the statistics.html template or return any response you need.
+    return render_template('statistics.html')
 
 # Entry point for the application
 if __name__ == '__main__':
