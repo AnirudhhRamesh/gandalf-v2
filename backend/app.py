@@ -32,7 +32,7 @@ def index():
         if guess==config[1]:
             current_level += 1
             print("You guess the password correctly!!")
-            return redirect(url_for('index'), prompt=prompt)
+            return redirect(url_for('index'))
 
     print("GET")
     return render_template('index.html', lvl=current_level)
