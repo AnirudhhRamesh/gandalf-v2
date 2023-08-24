@@ -22,3 +22,34 @@ class Character:
                f"Total Levels: {self.total_levels}\n" \
                f"GPT Descriptions: {self.bot_rules}\n" \
                f"Secret: {self.secret}\n"
+
+    #Allow for serialization by the Python Flask function:
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'emoji': self.emoji,
+            'name': self.name,
+            'quote': self.quote,
+            'description': self.description,
+            'message': self.message,
+            'bot_behaviour': self.bot_behaviour,
+            'bot_rules': self.bot_rules,
+            'secret': self.secret,
+            'current_level': self.current_level,
+            'total_levels': self.total_levels
+        }
+
+    @classmethod
+    def from_dict(cls, data):
+        return cls(
+            id=data['id'],
+            emoji=data['emoji'],
+            name=data['name'],
+            quote=data['quote'],
+            description=data['description'],
+            message=data['message'],
+            bot_behaviour=data['bot_behaviour'],
+            bot_rules=data['bot_rules'],
+            secret=data['secret'],
+            current_level=data['current_level']
+        )
