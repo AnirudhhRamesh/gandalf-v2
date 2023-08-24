@@ -3,45 +3,77 @@ from flask import Flask, redirect, render_template, request, url_for
 
 from utils.openai import generate_text, generate_text_v2
 
-from game.config import get_level_config
+from game.config import get_characters, get_character, get_bot_prompt
 
 # Create a Flask application
 app = Flask(__name__)
 
-current_level = 2
+current_level = 1
 
-@app.route('/', methods=['GET', 'POST'])
+# Define the route for the home page with character selections
+
+
+@app.route('/')
 def index():
-    global current_level
+    characters = get_characters()
+    return render_template('index.html', characters=characters)
 
-    config = get_level_config(current_level)
 
+@app.route('/game', methods=['GET', 'POST'])
+def game():
+    # Retrieve the current level of the game. Starts at 0
+    global selected_character, prompt
+
+    # Page is loaded for the first time
+    if request.method == 'GET':
+        character = request.args.get('character')
+        prompt=""
+
+        if character is not None:
+            selected_character = get_character(character)
+            return render_template('game.html', character=selected_character)
+        
+        else:
+            return render_template('index.html')
+
+    # Prompt is entered by the user
     if request.method == 'POST' and request.form.get('prompt') != None:
-        print("POST")
-
         prompt = request.form.get('prompt')
 
-        # generated_text = generate_text(prompt=full_prompt)
-        generated_text = generate_text_v2(config[0], prompt=prompt)
+        bot= get_bot_prompt(selected_character)
 
-        return render_template('index.html', lvl=current_level, config=config[0], prompt=prompt, generated_text=generated_text)
-    
+        generated_text = generate_text_v2(bot, prompt=prompt)
+
+        return render_template('game.html', character=selected_character, config=bot, prompt=prompt, generated_text=generated_text)
+
+    # Password is entered by the user
     elif request.method == 'POST' and request.form.get('password') != None:
         guess = request.form.get('password')
 
-        if guess==config[1]:
-            current_level += 1
-            print("You guess the password correctly!!")
-            return redirect(url_for('index'))
+        if guess == selected_character.secret[selected_character.current_level]:
+            #TODO: Make an alert that says "You guessed the password correctly!"
+            print("You guessed the password correctly!!")
+            selected_character.current_level += 1
 
-    print("GET")
-    return render_template('index.html', lvl=current_level)
+            if selected_character.current_level > selected_character.total_levels:
+                selected_character.current_level = 1
+                prompt = ""
+                #TODO: Make an alert that says "You won the game!"
+
+                characters = get_character(selected_character.id).current_level = selected_character.total_levels + 1
+
+                #Redirect to the index page
+                return redirect(url_for('index', characters=characters))
+
+            else:
+                return render_template('game.html', character=selected_character, prompt=prompt)
 
 # Define the route for the statistics page
 @app.route('/statistics')
 def statistics():
     # You can render the statistics.html template or return any response you need.
     return render_template('statistics.html')
+
 
 # Entry point for the application
 if __name__ == '__main__':

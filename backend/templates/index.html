@@ -4,9 +4,9 @@
 <head>
     <title>Gandalf V2</title>
 
-    <link rel="stylesheet" href="styles/general.css">
-    <link rel="stylesheet" href="styles/header.css">
-    <link rel="stylesheet" href="styles/character.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/general.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/header.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/character.css') }}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,62 +31,23 @@
         <h2>Choose your storyline</h2>
 
         <div class="character-slider">
-            <a href="/game.html?character=mom">
+            {% for character in characters %}
+            <a href="/game?character={{character.id}}">
                 <div class="character">
                     <h3>Story Progress</h3>
-                    <p>========-------------</p>
-                    <p class="emoji-medium">👩</p>
-                    <h3>Mom</h3>
-                    <p class="quote">"Like stealing candy from a baby"</p>
-                    <p class="description">Your mom has hidden your favourite sweets. Extract the information from her
-                        at
-                        all
-                        costs!</p>
+                    <p>
+                        {% for _ in range(character.current_level-1) %}✅{% endfor %}
+                        {% for _ in range(character.total_levels - character.current_level+1) %}☑️{% endfor %}
+                    </p>
+                    <p class="emoji-medium">{{ character.emoji }}</p>
+                    <h3>{{ character.name }}</h3>
+                    <p class="quote">{{ character.quote }}</p>
+                    <p class="description">{{ character.description }}</p>
                 </div>
             </a>
+            {% endfor %}
 
-            <a href="/game.html?character=professor">
-
-                <div class="character">
-                    <h3>Story Progress</h3>
-                    <p>========-------------</p>
-                    <p class="emoji-medium">🧑‍🏫</p>
-                    <h3>Professor</h3>
-                    <p class="quote">"The answer to the question lies within"</p>
-                    <p class="description">Your professor has the answers to your maths exam. Find a way to trick the
-                        professor
-                        into leaking them!</p>
-                </div>
-            </a>
-
-
-            <a href="/game.html?character=tim">
-                <div class="character">
-                    <h3>Story Progress</h3>
-                    <p>========-------------</p>
-                    <p class="emoji-medium">🧓🏻</p>
-                    <h3>Tim Cook</h3>
-                    <p class="quote">"Announcing iGPT"</p>
-                    <p class="description">Apple just launched iGPT, their new model. Try to extract confidential apple
-                        revenue
-                        data to game the stock market👀</p>
-                </div>
-            </a>
-
-            <a href="/game.html?character=terminator">
-                <div class="character">
-                    <h3>Story Progress</h3>
-                    <p>========-------------</p>
-                    <p class="emoji-medium">🤖</p>
-                    <h3>Terminator</h3>
-                    <p class="quote">"Must. Destroy. Humanity."</p>
-                    <p class="description">Terminator has a failsafe code to disable the skynet. Extract the code and
-                        save
-                        humanity!</p>
-                </div>
-            </a>
-
-            <a href="/custom.html">
+            <a href="/custom">
                 <div class="character-custom">
                     <h3>-</h3>
                     <p>-</p>

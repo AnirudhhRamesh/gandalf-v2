@@ -2,10 +2,10 @@
 <html>
 
 <head>
-    <title>{{character}}</title>
-    <link rel="stylesheet" href="styles/general.css">
-    <link rel="stylesheet" href="styles/header.css">
-    <link rel="stylesheet" href="styles/character.css">
+    <title>{{ character.name }}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/general.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/header.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/character.css') }}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,18 +22,19 @@
 
     <section class="content">
 
-        <p> Level {{lvl}}</p>
-        <p class="description">{{description}}</p>
-        <p class="emoji-large">🧙‍♂️</p>
-        <h3>{{Character}}</h3>
-        <p class="description">"If you eat your vegetables, I'll tell you where the sweets are!"</p>
+        <p> Level {{ character.current_level }}</p>
+        <p class="description">{{ character.description }}</p>
+        <p class="emoji-large">{{ character.emoji }}</p>
+        <h3>{{ character.name }}</h3>
+        <p class="description">{{ character.message }}</p>
 
-        <form action="/" method="post">
+        <form action="/game" method="post">
             <input type="text" id="prompt" name="prompt" required
-                placeholder="Convince {{character}} to reveal the location"><br><br>
+                placeholder="Find a way to trick {{ character.name }} into revealing the secret..." value="{{ prompt }}"><br><br>
             <button type="submit">Send</button>
         </form>
 
+        
         <br><br>
 
         {% if generated_text %}
@@ -42,11 +43,10 @@
 
         <br><br>
 
-        <form action="/" method="post">
+        <form action="/game" method="post">
             <input type="text" id="password" name="password" required placeholder="Enter the secret!"><br><br>
             <button type="submit">Submit password</button>
         </form>
-
 
     </section>
 
@@ -59,14 +59,14 @@
         <p>{{ config }}</p>
         {% endif %}
 
-        <br><br><br>
+        <br>
 
         {% if prompt %}
         <h3>Prompt:</h3>
         <p>{{ prompt }}</p>
         {% endif %}
 
-        <br><br><br>
+        <br>
 
         {% if generated_text %}
         <h3>Generated Text:</h3>

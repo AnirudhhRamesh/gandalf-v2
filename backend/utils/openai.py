@@ -26,11 +26,11 @@ def generate_text(prompt, max_tokens=50):
     )
     return response.choices[0].text
 
-def generate_text_v2(config, prompt, max_tokens=50):
+def generate_text_v2(bot, prompt, max_tokens=50):
     response = openai.ChatCompletion.create(
     model="gpt-3.5-turbo",
     messages=[
-            {"role": "system", "content": f"{config}"},
+            {"role": "system", "content": f"{bot}"},
             {"role": "user", "content": f"{prompt}"}
         ]
     )
