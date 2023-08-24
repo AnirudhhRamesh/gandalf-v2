@@ -36,8 +36,8 @@
                 <div class="character">
                     <h3>Story Progress</h3>
                     <p>
-                        {% for _ in range(character.current_level-1) %}✅{% endfor %}
-                        {% for _ in range(character.total_levels - character.current_level+1) %}☑️{% endfor %}
+                        {% for _ in range(character.current_level) %}✅{% endfor %}
+                        {% for _ in range(character.total_levels - character.current_level) %}☑️{% endfor %}
                     </p>
                     <p class="emoji-medium">{{ character.emoji }}</p>
                     <h3>{{ character.name }}</h3>

@@ -1,86 +1,94 @@
-from flask import Flask, redirect, render_template, request, url_for
-from utils.openai import generate_text, generate_text_v2
-from game.config import get_characters, get_character, get_bot_prompt
-import os  # Import the os module to access environment variables
+import os
+from flask import Flask, redirect, render_template, request, url_for, session
+from utils.openai import generate_text_v2
+from game.config import Game
 
-# Create a Flask application
 app = Flask(__name__)
+app.secret_key = 'a917dcf8d1edf39af0262edcc8a38fb23ac9bfa14733058e'
 
-current_level = 1
-
-# Define the route for the home page with character selections
 @app.route('/')
 def index():
-    characters = get_characters()
-    return render_template('index.html', characters=characters)
+    game = Game()
+    
+    if 'game' in session:
+        game = Game.deserialize(session['game'])
+    
+    # Store the game object in the session
+    session['game'] = game.serialize()
+
+    print(game.get_characters())
+    
+    return render_template('index.html', characters=game.get_characters())
 
 @app.route('/game', methods=['GET', 'POST'])
 def game():
-    # Retrieve the current level of the game. Starts at 0
-    global selected_character, prompt
+    game = Game()
+    
+    if 'game' in session:
+        game = Game.deserialize(session['game'])
 
-    # Page is loaded for the first time
     if request.method == 'GET':
         character = request.args.get('character')
-        prompt=""
+        prompt = ""
 
         if character is not None:
-            selected_character = get_character(character)
+            game.set_active_character(character)
+            selected_character = game.get_active_character()
+
+            # Store the game object in the session
+            session['game'] = game.serialize()
+
             return render_template('game.html', character=selected_character)
-        
+
         else:
             return render_template('index.html')
 
-    # Prompt is entered by the user
-    if request.method == 'POST' and request.form.get('prompt') != None:
+    if request.method == 'POST' and request.form.get('prompt') is not None:
         prompt = request.form.get('prompt')
+        session["prompt"] = prompt
 
-        bot= get_bot_prompt(selected_character)
+        active_character = game.get_active_character()
+        bot = game.get_bot_prompt(active_character.id)
 
         generated_text = generate_text_v2(bot, prompt=prompt)
 
-        return render_template('game.html', character=selected_character, config=bot, prompt=prompt, generated_text=generated_text)
+        return render_template('game.html', character=active_character, config=bot, prompt=prompt, generated_text=generated_text)
 
-    # Password is entered by the user
-    elif request.method == 'POST' and request.form.get('password') != None:
+    elif request.method == 'POST' and request.form.get('password') is not None:
+        #TODO: Store prompt in the game object or session object
+        prompt=""
+        if prompt in session:
+            prompt = session["prompt"]
+
         guess = request.form.get('password')
+        active_character = game.get_active_character()
 
-        if guess == selected_character.secret[selected_character.current_level]:
-            #TODO: Make an alert that says "You guessed the password correctly!"
+        if guess == active_character.secret[active_character.current_level]:
             print("You guessed the password correctly!!")
-            selected_character.current_level += 1
+            game.increment_character_level(active_character.id)
+            
+            # Store the game object in the session
+            session['game'] = game.serialize()
+            
+            if active_character.current_level >= active_character.total_levels:
+                game.reset_character_level(active_character.id)
+                session['game'] = game.serialize()
 
-            if selected_character.current_level > selected_character.total_levels:
-                selected_character.current_level = 1
-                prompt = ""
-                #TODO: Make an alert that says "You won the game!"
-
-                characters = get_character(selected_character.id).current_level = selected_character.total_levels + 1
-
-                #Redirect to the index page
-                return redirect(url_for('index', characters=characters))
-
+                return redirect(url_for('index'))
             else:
-                return render_template('game.html', character=selected_character, prompt=prompt)
-        
+                return render_template('game.html', character=active_character, prompt=prompt)
+
         else:
+            return render_template('game.html', character=active_character, prompt=prompt)
 
-            #Password is guessed incorrectly
-            return render_template('game.html', character=selected_character, prompt=prompt)
-
-# Define the route for the statistics page
 @app.route('/statistics')
 def statistics():
-    # You can render the statistics.html template or return any response you need.
     return render_template('statistics.html')
 
 @app.route('/custom')
 def custom():
-    # You can render the statistics.html template or return any response you need.
     return render_template('custom.html')
 
-# Entry point for the application
 if __name__ == '__main__':
-    # Retrieve the port from the $PORT environment variable or use 5000 as a default
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
