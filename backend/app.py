@@ -62,6 +62,11 @@ def game():
 
             else:
                 return render_template('game.html', character=selected_character, prompt=prompt)
+        
+        else:
+
+            #Password is guessed incorrectly
+            return render_template('game.html', character=selected_character, prompt=prompt)
 
 # Define the route for the statistics page
 @app.route('/statistics')
