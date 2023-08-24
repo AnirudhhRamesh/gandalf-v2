@@ -1,9 +1,7 @@
-from flask import Flask
 from flask import Flask, redirect, render_template, request, url_for
-
 from utils.openai import generate_text, generate_text_v2
-
 from game.config import get_characters, get_character, get_bot_prompt
+import os  # Import the os module to access environment variables
 
 # Create a Flask application
 app = Flask(__name__)
@@ -11,13 +9,10 @@ app = Flask(__name__)
 current_level = 1
 
 # Define the route for the home page with character selections
-
-
 @app.route('/')
 def index():
     characters = get_characters()
     return render_template('index.html', characters=characters)
-
 
 @app.route('/game', methods=['GET', 'POST'])
 def game():
@@ -79,7 +74,8 @@ def custom():
     # You can render the statistics.html template or return any response you need.
     return render_template('custom.html')
 
-
 # Entry point for the application
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Retrieve the port from the $PORT environment variable or use 5000 as a default
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=True)
