@@ -74,6 +74,11 @@ def statistics():
     # You can render the statistics.html template or return any response you need.
     return render_template('statistics.html')
 
+@app.route('/custom')
+def custom():
+    # You can render the statistics.html template or return any response you need.
+    return render_template('custom.html')
+
 
 # Entry point for the application
 if __name__ == '__main__':
