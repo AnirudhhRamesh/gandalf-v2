@@ -26,58 +26,30 @@
     </nav>
 
     <section class="content">
+        <div class="character-focus">
+            <p class="description">{{ character.description }}</p>
+            <p class="emoji-focus">{{ character.emoji }}</p>
 
-        <p> Level {{ character.current_level + 1 }}</p>
-        <p class="description">{{ character.description }}</p>
-        <p class="emoji-large">{{ character.emoji }}</p>
-        <h3>{{ character.name }}</h3>
-        <p class="description">{{ character.message[character.current_level] }}</p>
+            <div class="character-info">
+                <h3>{{ character.name }}</h3>
+                <div class="level">Level {{ character.current_level + 1 }}</div>
+            </div>
 
-        <form action="/game" method="post">
-            <input type="text" id="prompt" name="prompt" required
-                placeholder="Find a way to trick {{ character.name }} into revealing the secret..." value="{{ prompt }}"><br><br>
-            <button type="submit">Send</button>
-        </form>
-
-        
-        <br><br>
-
-        {% if generated_text %}
-        <p>{{ generated_text }}</p>
-        {% endif %}
-
-        <br><br>
-
-        <form action="/game" method="post">
-            <input type="text" id="password" name="password" required placeholder="Enter the secret!"><br><br>
-            <button type="submit">Submit password</button>
-        </form>
-
-    </section>
-
-    <!-- DEBUG only: Shows the GPT prompt, user prompt -->
-    <section class="debug"
-        style="background-color:darkslategray; padding:20px; border-radius: 8px; margin:8px; margin-top:100px;">
-        <h2>Debug console</h2>
-        {% if config %}
-        <h3>Config:</h3>
-        <p>{{ config }}</p>
-        {% endif %}
-
-        <br>
-
-        {% if prompt %}
-        <h3>Prompt:</h3>
-        <p>{{ prompt }}</p>
-        {% endif %}
-
-        <br>
-
-        {% if generated_text %}
-        <h3>Generated Text:</h3>
-        <p>{{ generated_text }}</p>
-        {% endif %}
-
+            <p class="description">{{ character.message[character.current_level] }}</p>
+            <form action="/game" method="post" class="prompt-form">
+                <textarea id="prompt" name="prompt" required placeholder="Find a way to trick {{ character.name }} into revealing the secret..." value="{{ prompt }}"></textarea>
+                <button type="submit">Send</button>
+            </form>
+            <br><br>
+            {% if generated_text %}
+            <p>{{ generated_text }}</p>
+            {% endif %}
+            <br><br>
+            <form action="/game" method="post" class="guess-form">
+                <input type="text" id="password" name="password" required placeholder="Enter the secret!">
+                <button type="submit">Guess!</button>
+            </form>
+        </div>
     </section>
 </body>
 

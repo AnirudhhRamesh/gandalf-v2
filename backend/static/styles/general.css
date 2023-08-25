@@ -18,3 +18,8 @@ a {
     text-decoration: none;
     color: white;
 }
+
+footer a {
+    font-weight: bold;
+    text-decoration: underline;
+  }

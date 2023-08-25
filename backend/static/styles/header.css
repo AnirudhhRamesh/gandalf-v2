@@ -13,4 +13,6 @@ nav li {
     padding: 4px 8px 4px 8px;
     border-radius: 6px;
     background-color: rgb(109 98 224);
+    font-size: 15px;
+    font-family: Montserrat, Roboto;
 }

@@ -3,13 +3,27 @@
 
 <head>
     <title>Lakera Guard</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/general.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/header.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/character.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
-    <h1> Create a custom gandalf bot</h1>
-    <p> Connect your LLM and perform the Gandalf test! </p>
+    <nav>
+        <li><a href="/">Home</a></li>
+        <li><a href="/statistics">Statistics</a></li>
+    </nav>
 
-    <h2>Contact our team to test out Lakera Guard!</h2>
+
+    <p class="emoji-large">💪</p>
+    <h1> You Decide!</h1>
+    <p>Connect your LLM and perform the Gandalf test!. Contact our team to see how this can be implemented !</p>
 </body>
 
 </html>

@@ -63,3 +63,113 @@ h2 {
 .description {
     line-height: 1.5;
 }
+
+.character-focus {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.emoji-focus {
+    font-size: 125px;
+    line-height: 0;
+}
+
+.character-info {
+    display: flex;
+    align-items: center;
+}
+
+.character-info h3{
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 0;
+    margin-right: 8px;
+}
+
+.level {
+    display: inline-block;
+    font-size: 15px;
+    padding: 3px 6px; /* Adjust padding as needed */
+    background-color: rgba(255, 255, 255, 0.5); /* Transparent white background */
+    color: rgb(74, 63, 179); /* Fully transparent font color */
+    border-radius: 10px; /* Rounded corners for the badge */
+    font-weight: bold;
+}
+
+
+/* TODO: FIX THE CSS BELOW */
+
+  
+  /* Use bold font for the h3 character name */
+  
+  
+  /* Style for the prompt form */
+.prompt-form {
+    width: 100%;
+    max-width: 400px;
+    height: 200px;
+    border-radius: 14px;
+    margin: 10px auto;
+    padding: 10px;
+    text-align: left;
+    position: relative;
+  }
+
+.prompt-form textarea{
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    padding: 8px;
+    font-size: 14px;
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+    position: relative;
+}
+
+.prompt-form textarea::placeholder{
+    color: #888;
+}
+
+.prompt-form button {
+    position: absolute;
+    right: 4px;
+    bottom: 2px;
+    background-color: rgb(203,88,104);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+}
+
+.guess-form {
+    display: flex;
+    align-items: center;
+    max-width: 400px;
+}
+
+.guess-form input {
+    width: 1fr;
+    height: 20px;
+    padding: 10px;
+    font-size:14px;
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.guess-form button {
+    width: 80px;
+    background-color: rgb(203,88,104);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+}

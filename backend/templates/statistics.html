@@ -3,32 +3,30 @@
 
 <head>
     <title>Prompt Statistics</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
-    <style>
-        body {
-            padding: 30px;
-            width: 800px;
-            align-content: center;
-            justify-content: center;
-            margin: 0 auto;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/general.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/header.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/character.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
 </head>
 
 <body>
-
     <nav>
-        <ul>
-            <li style="display: inline;"><a href="/">Home</a></li>
-            <li style="display: inline;"><a href="/statistics">Statistics</a></li>
-        </ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/statistics">Statistics</a></li>
     </nav>
 
-    <div class="content">
-        <h2>Statistics</h2>
-        <p>These are the most successful prompts</p>
-    </div>
 
+    <div class="content">
+        <p class="emoji-large">📊</p>
+        <h2>Statistics</h2>
+        <p>These are the most successful prompts: This is just a placeholder 😋</p>
+    </div>
 </body>
 
 </html>
