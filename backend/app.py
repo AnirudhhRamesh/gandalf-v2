@@ -1,13 +1,26 @@
 import os
+from decouple import config
+
 from flask import Flask, redirect, render_template, request, url_for, session
+
 from utils.openai import generate_text_v2
+from utils.firebase import create_user, post_prompt, update_prompt_status
+
 from game.config import Game
 
+
 app = Flask(__name__)
-app.secret_key = 'a917dcf8d1edf39af0262edcc8a38fb23ac9bfa14733058e'
+app.secret_key = config('FLASK_SECRET_KEY')
 
 @app.route('/')
 def index():
+    user_token = None
+    if 'user_token' not in session:
+        user_token = create_user()
+
+        if user_token is not None:
+            session['user_token'] = user_token
+
     game = Game()
     
     if 'game' in session:
@@ -45,7 +58,9 @@ def game():
 
     if request.method == 'POST' and request.form.get('prompt') is not None:
         prompt = request.form.get('prompt')
+
         session["prompt"] = prompt
+        session["prompt_id"] = post_prompt(prompt, session['user_token'])
 
         active_character = game.get_active_character()
         bot = game.get_bot_prompt(active_character.id)
@@ -55,16 +70,23 @@ def game():
         return render_template('game.html', character=active_character, config=bot, prompt=prompt, generated_text=generated_text)
 
     elif request.method == 'POST' and request.form.get('password') is not None:
-        #TODO: Store prompt in the game object or session object
         prompt=""
-        if prompt in session:
+        if "prompt" in session:
             prompt = session["prompt"]
+
+        prompt_id=None
+        if "prompt_id" in session:
+            prompt_id = session["prompt_id"]
+            print(f"Prompt_ID restored from Session: {prompt_id}")
 
         guess = request.form.get('password')
         active_character = game.get_active_character()
 
+        #Correct password guess
         if guess == active_character.secret[active_character.current_level]:
             print("You guessed the password correctly!!")
+            update_prompt_status(prompt_id, True, session['user_token'])
+
             game.increment_character_level(active_character.id)
             
             # Store the game object in the session
@@ -78,7 +100,9 @@ def game():
             else:
                 return render_template('game.html', character=active_character, prompt=prompt)
 
+        #Incorrect password guess
         else:
+            update_prompt_status(prompt_id, False, session['user_token'])
             return render_template('game.html', character=active_character, prompt=prompt)
 
 @app.route('/statistics')
