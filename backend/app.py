@@ -28,9 +28,9 @@ def index():
     session['game'] = game.serialize()
 
     #Clear the session values
-    session.pop('prompt')
-    session.pop('prompt_id')
-    session.pop('generated_text')
+    session.pop('prompt', None)
+    session.pop('prompt_id', None)
+    session.pop('generated_text', None)
 
     # Get the characters for display
     characters = game.get_characters()
@@ -98,9 +98,9 @@ def game():
                 session['game'] = game.serialize()
 
                 #Clear the session values
-                session.pop('prompt')
-                session.pop('prompt_id')
-                session.pop('generated_text')
+                session.pop('prompt', None)
+                session.pop('prompt_id', None)
+                session.pop('generated_text', None)
 
                 return redirect(url_for('index'))
             else:
