@@ -3,9 +3,14 @@
 
 <head>
     <title>{{ character.name }}</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/general.css') }}">
+    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/general.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/header.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/character.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/character.css') }}"> -->
+
+    <link rel="stylesheet" type="text/css" href="../static/styles/general.css">
+    <link rel="stylesheet" type="text/css" href="../static/styles/header.css">
+    <link rel="stylesheet" type="text/css" href="../static/styles/character.css">
+    <link rel="stylesheet" type="text/css" href="../static/styles/console.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,7 +31,7 @@
         <p class="description">{{ character.description }}</p>
         <p class="emoji-large">{{ character.emoji }}</p>
         <h3>{{ character.name }}</h3>
-        <p class="description">{{ character.message }}</p>
+        <p class="description">{{ character.message[character.current_level] }}</p>
 
         <form action="/game" method="post">
             <input type="text" id="prompt" name="prompt" required
