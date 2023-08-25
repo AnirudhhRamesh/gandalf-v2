@@ -4,32 +4,21 @@ from decouple import config
 # Configure OpenAI SDK
 openai.api_key = config('OPENAI_API_KEY')
 
+def generate_text(bot, prompt, max_tokens=50):
+    """
+    Generate text in a conversation format using OpenAI's Chat Completion API.
 
-# TODO: Fix to make modular (per level)
-def generate_prompt(animal):
-    return """Suggest three names for an animal that is a superhero.
+    Args:
+        bot (str): The role of the bot in the conversation.
+        prompt (str): The user's input prompt.
+        max_tokens (int, optional): The maximum number of tokens in the generated text.
 
-Animal: Cat
-Names: Captain Sharpclaw, Agent Fluffball, The Incredible Feline
-Animal: Dog
-Names: Ruff the Protector, Wonder Canine, Sir Barks-a-Lot
-Animal: {}
-Names:""".format(
-        animal.capitalize()
-    )
-
-def generate_text(prompt, max_tokens=50):
-    response = openai.Completion.create(
-        engine="text-davinci-002",
-        prompt=prompt,
-        max_tokens=max_tokens
-    )
-    return response.choices[0].text
-
-def generate_text_v2(bot, prompt, max_tokens=50):
+    Returns:
+        str: The generated text.
+    """
     response = openai.ChatCompletion.create(
-    model="gpt-3.5-turbo",
-    messages=[
+        model="gpt-3.5-turbo",
+        messages=[
             {"role": "system", "content": f"{bot}"},
             {"role": "user", "content": f"{prompt}"}
         ]

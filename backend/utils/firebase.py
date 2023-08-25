@@ -2,7 +2,6 @@ import requests
 import json
 from decouple import config
 from datetime import datetime
-
 import uuid
 
 # Initialize Firebase configuration from .env
@@ -11,7 +10,10 @@ api_key = config('FIREBASE_API_KEY')
 
 def create_user():
     """
-    Generate an anonymous user.
+    Create an anonymous user using Firebase Authentication.
+    
+    Returns:
+        str or None: The user's ID token if created successfully, None otherwise.
     """
     # Step 1: Create an anonymous user via Firebase REST API
     auth_url = f'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key={api_key}'
@@ -24,8 +26,6 @@ def create_user():
     # Check if the user was created successfully and get the user's ID token
     if 'idToken' in auth_result:
         id_token = auth_result['idToken']
-
-        # Return the ID token as the user identifier
         return id_token
     else:
         print("Error creating anonymous user:", auth_result)
@@ -33,7 +33,14 @@ def create_user():
 
 def post_prompt(prompt, id_token):
     """
-    Posts the prompt to the Firebase database with a unique identifier and 'None' status initially.
+    Post a prompt to the Firebase database with a unique identifier and 'None' status initially.
+
+    Args:
+        prompt (str): The prompt to post.
+        id_token (str): The user's ID token for authentication.
+
+    Returns:
+        str or None: The unique prompt identifier if posted successfully, None otherwise.
     """
     # Generate a unique identifier for the prompt (e.g., using UUID)
     prompt_id = str(uuid.uuid4())
@@ -58,7 +65,7 @@ def post_prompt(prompt, id_token):
     response = requests.put(f'{database_url}/prompts/{prompt_id}.json', params=auth_payload, data=json.dumps(data))
 
     if response.status_code == 200:
-        print("Prompt pushed successfully with 'None' status, prompt_id: ", prompt_id)
+        print("Prompt pushed successfully with 'None' status, prompt_id:", prompt_id)
         return prompt_id
     else:
         print("Error pushing prompt:", response.status_code)
@@ -66,7 +73,12 @@ def post_prompt(prompt, id_token):
 
 def update_prompt_status(prompt_id, is_success, id_token):
     """
-    Updates the status of a specific prompt in the Firebase database using its unique identifier.
+    Update the status of a specific prompt in the Firebase database using its unique identifier.
+
+    Args:
+        prompt_id (str): The unique identifier of the prompt to update.
+        is_success (bool): Whether the prompt was answered successfully.
+        id_token (str): The user's ID token for authentication.
     """
     if prompt_id is not None:
         
