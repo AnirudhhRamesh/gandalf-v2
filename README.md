@@ -2,6 +2,8 @@
 Gandalf V2 project which remakes the Gandalf game (by [Lakera.ai](http://gandalf.lakera.ai)) so I could practice my full-stack + AI tools.
 Has support for multiple characters/storylines. Has basic level progression, with increasing difficulty
 
+The project is available here: http://gandalf-v2-cae5533834d4.herokuapp.com
+
 ## Video Demo
 https://github.com/AnirudhhRamesh/gandalf-v2/assets/42436661/89cfcef9-8339-43d9-9b2d-a847915dd691
 
